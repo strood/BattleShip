@@ -7,13 +7,9 @@ const AppProvider = ({ children }) => {
   return <AppContext.Provider value='hello'>{children}</AppContext.Provider>;
 };
 
-const testfunction = () => {
-  return true;
-};
-
 // make sure use
 export const useGlobalContext = () => {
   return useContext(AppContext);
 };
 
-export { AppContext, AppProvider, testfunction };
+export { AppContext, AppProvider };
