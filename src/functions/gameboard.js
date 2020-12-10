@@ -2,7 +2,6 @@
 
 const Gameboard = () => {
   // Properties
-  //   let board = Array(10).fill({ hit: false, ship: false, shipID: null });
   let board = [];
   for (let i = 1; i <= 10; i++) {
     let row = [];
@@ -18,6 +17,9 @@ const Gameboard = () => {
   // Getters
   const getShips = () => placedShips;
   const getBoard = () => board;
+  const shipsSunk = () => {
+    return placedShips.every((ship) => ship.isSunk() === true);
+  };
 
   // Functions
 
@@ -53,6 +55,7 @@ const Gameboard = () => {
     return placementValidity;
   };
 
+  // Place ship at given coords, unless invalid, then return error
   const placeShip = (ship, coordinates) => {
     const isValid = checkPlacement(ship, coordinates);
 
@@ -86,6 +89,7 @@ const Gameboard = () => {
     }
   };
 
+  // Receive attack coordinates, mark as hit, notify ship of hit segment if present
   const receiveAttack = (coordinates) => {
     let x = coordinates[0];
     let y = coordinates[1];
@@ -97,10 +101,6 @@ const Gameboard = () => {
       let shipSeg = shipInfo[1];
       placedShips[id].hit(shipSeg);
     }
-  };
-
-  const shipsSunk = () => {
-    return placedShips.every((ship) => ship.isSunk() === true);
   };
 
   return {

@@ -1,5 +1,3 @@
-// Ship methods
-
 // Ship Factory Function
 const Ship = (len) => {
   // Properties
@@ -11,6 +9,7 @@ const Ship = (len) => {
   const getLength = () => length;
   const getOrientation = () => orientation;
   const getSegments = () => segments;
+  const isSunk = () => segments.every((seg) => seg === 'hit');
 
   // Functions
   const toggleOrientation = () => {
@@ -19,8 +18,7 @@ const Ship = (len) => {
       : (orientation = 'vertical');
   };
 
-  const isSunk = () => segments.every((seg) => seg === 'hit');
-
+  // change sgement from null to hit.
   const hit = (index) => {
     segments.splice(index, 1, 'hit');
   };
