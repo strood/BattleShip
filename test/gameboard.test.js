@@ -2,7 +2,7 @@ import Gameboard from '../src/functions/gameboard';
 import Ship from '../src/functions/ship';
 
 describe('Gameboard', () => {
-  test('Gameboard has 10x10 coordinates, empty on first creationw', () => {
+  test('Gameboard has 10x10 coordinates, empty on first creation', () => {
     const testBoard = Gameboard();
     expect(testBoard.getBoard()[0].length).toBe(10);
     expect(testBoard.getBoard().length).toBe(10);
@@ -114,5 +114,42 @@ describe('Gameboard', () => {
     expect(() => board.placeShip(testShip, [0, 1])).toThrow(
       'invalid ship placement'
     );
+  });
+
+  test('receiveAttack() function will take coordinates, mark spot as hit', () => {
+    const board = Gameboard();
+    board.receiveAttack([5, 5]);
+    expect(board.getBoard()[5][5]).toEqual({ hit: true, ship: false });
+  });
+
+  test('receiveAttack() function will take coordinates, mark spot as hit, even if ship present', () => {
+    const board = Gameboard();
+    const testShip = Ship(5);
+    board.placeShip(testShip, [5, 3]);
+    board.receiveAttack([5, 5]);
+    expect(board.getBoard()[5][5]).toEqual({ hit: true, ship: '0s2' });
+  });
+
+  test('receiveAttack() function will take coordinates, mark spot as hit, and tell correct ship its been hit, in correct segment', () => {
+    const board = Gameboard();
+    const testShip = Ship(5);
+    board.placeShip(testShip, [5, 3]);
+    board.receiveAttack([5, 5]);
+
+    expect(testShip.getSegments()[2]).toEqual('hit');
+  });
+
+  test('shipsRemaining() should return true, unless all ships have been sank', () => {
+    const board = Gameboard();
+    const testShip1 = Ship(2);
+    const testShip2 = Ship(2);
+    board.placeShip(testShip1, [0, 0]);
+    board.placeShip(testShip2, [1, 0]);
+    board.receiveAttack([0, 0]);
+    board.receiveAttack([0, 1]);
+    board.receiveAttack([1, 0]);
+    expect(board.shipsSunk()).toBe(false);
+    board.receiveAttack([1, 1]);
+    expect(board.shipsSunk()).toBe(true);
   });
 });

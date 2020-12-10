@@ -22,7 +22,7 @@ const Ship = (len) => {
   const isSunk = () => segments.every((seg) => seg === 'hit');
 
   const hit = (index) => {
-    segments[index - 1] = 'hit';
+    segments.splice(index, 1, 'hit');
   };
 
   // Object

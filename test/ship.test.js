@@ -17,15 +17,16 @@ describe('Ship Factory', () => {
 
   test('ship hit() function will mark a given segment as hit', () => {
     const ship = Ship(3);
-    ship.hit(3);
+    ship.hit(2);
     expect(ship.getSegments()).toEqual([null, null, 'hit']);
   });
 
   test('if all segments hit, ship is sunk', () => {
     const ship = Ship(3);
+    ship.hit(0);
     ship.hit(1);
     ship.hit(2);
-    ship.hit(3);
+
     expect(ship.isSunk()).toBe(true);
   });
 

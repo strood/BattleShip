@@ -27,8 +27,8 @@ const Gameboard = () => {
     let startY = coordinates[1];
     let orientation = ship.getOrientation();
     let length = ship.getLength();
-
     let boardSeg = [];
+
     //check orientaition, and grab board in that direction
     if (orientation === 'horizontal') {
       boardSeg = board[startX].slice(startY);
@@ -85,10 +85,30 @@ const Gameboard = () => {
       throw new Error('invalid ship placement');
     }
   };
+
+  const receiveAttack = (coordinates) => {
+    let x = coordinates[0];
+    let y = coordinates[1];
+    board[x][y].hit = true;
+    if (board[x][y].ship) {
+      let shipInfo = board[x][y].ship.split('s');
+
+      let id = shipInfo[0];
+      let shipSeg = shipInfo[1];
+      placedShips[id].hit(shipSeg);
+    }
+  };
+
+  const shipsSunk = () => {
+    return placedShips.every((ship) => ship.isSunk() === true);
+  };
+
   return {
     getBoard,
     getShips,
     placeShip,
+    shipsSunk,
+    receiveAttack,
   };
 };
 
