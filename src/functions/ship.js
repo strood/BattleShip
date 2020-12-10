@@ -7,12 +7,12 @@ const Ship = (len) => {
   let orientation = 'horizontal';
   let segments = Array(len).fill(null);
 
-  // getters
+  // Getters
   const getLength = () => length;
   const getOrientation = () => orientation;
   const getSegments = () => segments;
 
-  //functions
+  // Functions
   const toggleOrientation = () => {
     orientation === 'vertical'
       ? (orientation = 'horizontal')
