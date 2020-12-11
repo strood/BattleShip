@@ -109,6 +109,7 @@ const Gameboard = () => {
     placeShip,
     shipsSunk,
     receiveAttack,
+    checkPlacement,
   };
 };
 

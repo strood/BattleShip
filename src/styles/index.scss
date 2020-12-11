@@ -7,11 +7,39 @@ body,
   width: 100%;
   height: 100%;
 }
-body {
-  background-color: orange;
-  h1 {
-    &:hover {
-      color: $light-blue;
-    }
+
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.boardHolder {
+  display: flex;
+}
+
+.playerBoardDiv,
+.enemyBoardDiv {
+  display: flex;
+  flex-direction: column;
+}
+
+.playerBoard,
+.enemyBoard {
+  display: flex;
+  flex-direction: column;
+}
+
+.boardRow {
+  display: flex;
+}
+
+.boardCell {
+  border: 1px solid black;
+  width: 2em;
+  height: 2em;
+  &:hover {
+    background-color: red;
   }
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 // import pages
 // Example pages below that work with our below routes
-// import Home from './pages/Home';
+import Main from './pages/Main';
 // import About from './pages/About';
 // import SingleCocktail from './pages/SingleCocktail';
 // import Error from './pages/Error';
@@ -11,7 +11,7 @@ import React from 'react';
 function App() {
   return (
     <>
-      <h1>BattleShip</h1>
+      <Main />
     </>
   );
 }
