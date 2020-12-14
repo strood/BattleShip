@@ -17,6 +17,7 @@ const Player = (isHuman) => {
       return validCoordinates[0];
     }
   };
+
   return { human: isHuman, turn: false, playTurn };
 };
 

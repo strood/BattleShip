@@ -1,6 +1,9 @@
 // Base reset
 @import './vars';
 @import './base';
+
+@import './components/ships';
+
 html,
 body,
 #root {
@@ -13,10 +16,14 @@ main {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  height: 100vh;
+  width: 100vw;
 }
 
 .boardHolder {
   display: flex;
+  justify-content: space-around;
+  width: 60%;
 }
 
 .playerBoardDiv,
@@ -35,11 +42,18 @@ main {
   display: flex;
 }
 
-.boardCell {
+.playerBoardCell,
+.enemyBoardCell {
   border: 1px solid black;
   width: 2em;
   height: 2em;
+}
+.enemyBoardCell {
   &:hover {
     background-color: red;
   }
+}
+
+.hit {
+  background: black;
 }

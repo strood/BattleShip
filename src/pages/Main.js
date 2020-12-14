@@ -1,56 +1,27 @@
 import React, { useEffect } from 'react';
-import Game from '../functions/game';
+import { useGlobalContext } from '../context';
+import GameView from '../components/GameView';
+import NewGameView from '../components/NewGameView';
+import SetupView from '../components/SetupView';
 
 export default function Main() {
-  const newGame = Game();
-  console.log(newGame.enemyBoard.getBoard());
-  const playerBoard = newGame.playerBoard.getBoard();
-  const enemyBoard = newGame.enemyBoard.getBoard();
+  const { game, setup, playing } = useGlobalContext();
+
+  useEffect(() => {
+    if (game.turn === game.computer) {
+      // game.playerBoard.receiveAttack(game.computer.playTurn(game.playerBoard));
+      // game.toggleTurn();
+      console.log('comp turn!');
+    }
+  }, [game]);
+
+  // console.log(newGame);
   return (
     <main>
       <h1>BattleShip</h1>
-      <div className='boardHolder'>
-        <div className='playerBoardDiv'>
-          <h3>Your Board</h3>
-          <div className='playerBoard'>
-            {playerBoard.map((row, i) => {
-              return (
-                <div key={i} className='boardRow'>
-                  {row.map((cell, j) => {
-                    return (
-                      <div
-                        key={`${i}${j}`}
-                        id={`${i}${j}`}
-                        className='boardCell'
-                      ></div>
-                    );
-                  })}
-                </div>
-              );
-            })}
-          </div>
-        </div>
-        <div className='enemyBoardDiv'>
-          <h3>Enemy Board</h3>
-          <div className='enemyBoard'>
-            {enemyBoard.map((row, i) => {
-              return (
-                <div key={i} className='boardRow'>
-                  {row.map((cell, j) => {
-                    return (
-                      <div
-                        key={`${i}${j}`}
-                        id={`${i}${j}`}
-                        className='boardCell'
-                      ></div>
-                    );
-                  })}
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </div>
+      {!game && <NewGameView />}
+      {setup && <SetupView game={game} />}
+      {playing && <GameView game={game} />}
     </main>
   );
 }

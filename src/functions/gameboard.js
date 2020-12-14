@@ -45,7 +45,7 @@ const Gameboard = () => {
       placementValidity = false;
     } else {
       // check if intersect w/ ship in segment
-      for (let i = 1; i < length; i++) {
+      for (let i = 0; i < length; i++) {
         if (boardSeg[i].ship) {
           placementValidity = false;
         }

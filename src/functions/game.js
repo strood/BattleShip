@@ -29,6 +29,15 @@ const randomizeShips = (shipsArr, board) => {
   });
 };
 
+const randomizeTurn = (user, computer) => {
+  let choice = user;
+  let randFlip = Math.floor(Math.random() * 2);
+  if (randFlip === 1) {
+    choice = computer;
+  }
+  return choice;
+};
+
 const Game = () => {
   const user = Player(true);
   const computer = Player(false);
@@ -36,14 +45,26 @@ const Game = () => {
   const enemyBoard = Gameboard();
   const playerShips = generateShips();
   const enemyShips = generateShips();
+  let turn = randomizeTurn(user, computer);
 
   randomizeShips(enemyShips, enemyBoard);
+  randomizeShips(playerShips, playerBoard);
+
+  const toggleTurn = () => {
+    if (turn === computer) {
+      turn = user;
+    } else {
+      turn = computer;
+    }
+  };
 
   return {
     user,
     computer,
     playerBoard,
     enemyBoard,
+    turn,
+    toggleTurn,
   };
 };
 
