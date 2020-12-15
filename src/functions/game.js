@@ -45,26 +45,26 @@ const Game = () => {
   const enemyBoard = Gameboard();
   const playerShips = generateShips();
   const enemyShips = generateShips();
-  let turn = randomizeTurn(user, computer);
+  // let turn = randomizeTurn(user, computer);
 
   randomizeShips(enemyShips, enemyBoard);
   randomizeShips(playerShips, playerBoard);
 
-  const toggleTurn = () => {
-    if (turn === computer) {
-      turn = user;
-    } else {
-      turn = computer;
-    }
-  };
+  // const toggleTurn = () => {
+  //   if (turn === computer) {
+  //     turn = user;
+  //   } else {
+  //     turn = computer;
+  //   }
+  // };
 
   return {
     user,
     computer,
     playerBoard,
     enemyBoard,
-    turn,
-    toggleTurn,
+    // turn,
+    // toggleTurn,
   };
 };
 

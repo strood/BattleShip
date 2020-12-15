@@ -1,12 +1,33 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useGlobalContext } from '../context';
 
-export default function GameView({ game }) {
+export default function GameView() {
+  const { playerTurn, computerTurn, winGame, game, turn } = useGlobalContext();
+
   const handleClick = (e) => {
-    console.log(e);
-    console.log(e.target.id);
-    // game.enemyBoard.receiveAttack([e.target.id[0], e.target.id[1]]);
+    if (turn) {
+      console.log(e.target.id);
+      playerTurn([e.target.id[0], e.target.id[1]]);
+    }
   };
-  console.log(game);
+
+  useEffect(() => {
+    if (!turn) {
+      computerTurn();
+    }
+  }, [turn]);
+
+  useEffect(() => {
+    if (game.playerBoard.shipsSunk()) {
+      console.log('computer wins!');
+      winGame(game.computer);
+    }
+    if (game.enemyBoard.shipsSunk()) {
+      console.log('player wins!');
+      winGame(game.user);
+    }
+  });
+
   return (
     <div className='boardHolder'>
       <div className='playerBoardDiv'>
@@ -20,8 +41,11 @@ export default function GameView({ game }) {
                     <div
                       key={`${i}${j}`}
                       id={`${i}${j}`}
-                      className={`playerBoardCell ${cell.hit ? 'hit' : ''}
-                       ${cell.ship ? `ship ship-${cell.ship[0]}` : ''}`}
+                      className={` ${cell.hit && !cell.ship ? 'hit' : ''}
+                       ${cell.ship ? `ship ship-${cell.ship[0]}` : ''}
+                       ${
+                         cell.ship && cell.hit ? 'hitShip' : ''
+                       } playerBoardCell`}
                     >
                       {cell.ship && cell.hit ? 'X' : null}
                     </div>
@@ -32,7 +56,8 @@ export default function GameView({ game }) {
           })}
         </div>
       </div>
-      {game.turn === game.user ? <h3>Your Move!</h3> : ''}
+      <br />
+
       <div className='enemyBoardDiv'>
         <h3>Enemy Board</h3>
         <div className='enemyBoard'>
@@ -40,7 +65,6 @@ export default function GameView({ game }) {
             return (
               <div key={i} className='boardRow'>
                 {row.map((cell, j) => {
-                  console.log(cell);
                   return (
                     <div
                       onClick={(e) => handleClick(e)}

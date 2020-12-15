@@ -6,9 +6,12 @@ import reducer from './reducer';
 const AppContext = React.createContext();
 
 const initialState = {
-  game: false,
+  game: Game(),
   setup: false,
-  playing: false,
+  playing: true,
+  turn: false,
+  gameover: false,
+  winner: null,
 };
 
 const AppProvider = ({ children }) => {
@@ -28,8 +31,24 @@ const AppProvider = ({ children }) => {
     dispatch({ type: 'PLAYER_TURN', payload: coordinates });
   };
 
+  const computerTurn = () => {
+    dispatch({ type: 'COMPUTER_TURN' });
+  };
+
+  const winGame = (winner) => {
+    dispatch({ type: 'WIN_GAME', payload: winner });
+  };
   return (
-    <AppContext.Provider value={{ ...state, newGame, startGame, playerTurn }}>
+    <AppContext.Provider
+      value={{
+        ...state,
+        newGame,
+        startGame,
+        playerTurn,
+        computerTurn,
+        winGame,
+      }}
+    >
       {children}
     </AppContext.Provider>
   );

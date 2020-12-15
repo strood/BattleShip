@@ -1,3 +1,11 @@
+.hit {
+  z-index: 2;
+  background: rgb(4, 37, 185);
+}
+
+.hitShip {
+}
+
 .ship-0 {
   background-color: rgb(158, 6, 6);
 }
@@ -6,12 +14,9 @@
   background-color: orange;
 }
 
-.ship-2 {
-  background-color: green;
-}
-
+.ship-2,
 .ship-3 {
-  background-color: blue;
+  background-color: green;
 }
 
 .ship-4 {
