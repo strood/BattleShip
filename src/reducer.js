@@ -6,19 +6,19 @@ export default function reducer(state, action) {
 
     game.enemyBoard.receiveAttack(action.payload);
 
-    return { ...state, game: game, turn: false };
+    return { ...state, game: game, userTurn: false };
   }
 
   if (action.type === 'COMPUTER_TURN') {
     // IM DOIGN THIS INCORRECTLY< LOOK AT OTHER EXAMPLE AND SEE I NEED TO PASS ALL this stuff
     // I want to change when i call the function, then nest it correctly here!
     const game = state.game;
-    const attack = game.computer.playTurn(game.playerBoard);
-    game.playerBoard.receiveAttack(attack);
+
+    game.playerBoard.receiveAttack(action.payload);
 
     console.log('playing a computer turn!');
-    console.log(game);
-    return { ...state, game: game, turn: true };
+
+    return { ...state, game: game, userTurn: true };
   }
 
   if (action.type === 'NEW_GAME') {
@@ -30,6 +30,7 @@ export default function reducer(state, action) {
       winner: null,
     };
   }
+
   if (action.type === 'START_GAME') {
     return { ...state, playing: true, setup: false };
   }

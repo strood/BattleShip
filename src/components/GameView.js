@@ -2,20 +2,31 @@ import React, { useEffect } from 'react';
 import { useGlobalContext } from '../context';
 
 export default function GameView() {
-  const { playerTurn, computerTurn, winGame, game, turn } = useGlobalContext();
+  const {
+    playerTurn,
+    computerTurn,
+    winGame,
+    game,
+    userTurn,
+  } = useGlobalContext();
 
   const handleClick = (e) => {
-    if (turn) {
+    if (userTurn) {
       console.log(e.target.id);
       playerTurn([e.target.id[0], e.target.id[1]]);
+      const attack = game.computer.playTurn(game.playerBoard);
+
+      computerTurn(attack);
     }
   };
 
   useEffect(() => {
-    if (!turn) {
-      computerTurn();
+    if (!userTurn) {
+      const attack = game.computer.playTurn(game.playerBoard);
+
+      computerTurn(attack);
     }
-  }, [turn]);
+  }, []);
 
   useEffect(() => {
     if (game.playerBoard.shipsSunk()) {

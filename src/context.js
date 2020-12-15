@@ -9,7 +9,7 @@ const initialState = {
   game: Game(),
   setup: false,
   playing: true,
-  turn: false,
+  userTurn: false,
   gameover: false,
   winner: null,
 };
@@ -31,8 +31,8 @@ const AppProvider = ({ children }) => {
     dispatch({ type: 'PLAYER_TURN', payload: coordinates });
   };
 
-  const computerTurn = () => {
-    dispatch({ type: 'COMPUTER_TURN' });
+  const computerTurn = (attack) => {
+    dispatch({ type: 'COMPUTER_TURN', payload: attack });
   };
 
   const winGame = (winner) => {
