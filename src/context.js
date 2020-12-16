@@ -6,9 +6,9 @@ import reducer from './reducer';
 const AppContext = React.createContext();
 
 const initialState = {
-  game: Game(),
+  game: false,
   setup: false,
-  playing: true,
+  playing: false,
   userTurn: false,
   gameover: false,
   winner: null,
@@ -16,8 +16,6 @@ const initialState = {
 
 const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-
-  // Add in useful methods for incrementing game.
 
   const newGame = () => {
     dispatch({ type: 'NEW_GAME' });

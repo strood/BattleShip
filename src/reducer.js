@@ -3,20 +3,14 @@ import Game from './functions/game';
 export default function reducer(state, action) {
   if (action.type === 'PLAYER_TURN') {
     const game = state.game;
-
     game.enemyBoard.receiveAttack(action.payload);
 
     return { ...state, game: game, userTurn: false };
   }
 
   if (action.type === 'COMPUTER_TURN') {
-    // IM DOIGN THIS INCORRECTLY< LOOK AT OTHER EXAMPLE AND SEE I NEED TO PASS ALL this stuff
-    // I want to change when i call the function, then nest it correctly here!
     const game = state.game;
-
     game.playerBoard.receiveAttack(action.payload);
-
-    console.log('playing a computer turn!');
 
     return { ...state, game: game, userTurn: true };
   }
@@ -32,11 +26,16 @@ export default function reducer(state, action) {
   }
 
   if (action.type === 'START_GAME') {
-    return { ...state, playing: true, setup: false };
+    let randFlip = Math.floor(Math.random() * 2);
+    let userTurn = false;
+    if (randFlip === 1) {
+      userTurn = true;
+    }
+    return { ...state, playing: true, setup: false, userTurn: userTurn };
   }
 
   if (action.type === 'WIN_GAME') {
-    return { ...state, playing: false, gameover: true, winner: action.payload };
+    return { ...state, playing: true, gameover: true, winner: action.payload };
   }
 
   throw new Error('no matching action types');

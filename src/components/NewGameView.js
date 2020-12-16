@@ -8,11 +8,6 @@ export default function NewGameView() {
   };
   return (
     <>
-      <h1>New Game View!</h1>
-      <p>
-        Clicking button below will start a new game that has unplaces ships, sow
-        e will go to setup view
-      </p>
       <button onClick={() => newGameButton()}>Start New Game!</button>
     </>
   );

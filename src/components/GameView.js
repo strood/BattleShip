@@ -8,15 +8,19 @@ export default function GameView() {
     winGame,
     game,
     userTurn,
+    gameover,
   } = useGlobalContext();
 
   const handleClick = (e) => {
     if (userTurn) {
-      console.log(e.target.id);
-      playerTurn([e.target.id[0], e.target.id[1]]);
-      const attack = game.computer.playTurn(game.playerBoard);
+      console.log(e.target);
+      if (!e.target.hit) {
+        console.log(e.target.id);
+        playerTurn([e.target.id[0], e.target.id[1]]);
+        const attack = game.computer.playTurn(game.playerBoard);
 
-      computerTurn(attack);
+        computerTurn(attack);
+      }
     }
   };
 
@@ -53,7 +57,7 @@ export default function GameView() {
                       key={`${i}${j}`}
                       id={`${i}${j}`}
                       className={` ${cell.hit && !cell.ship ? 'hit' : ''}
-                       ${cell.ship ? `ship ship-${cell.ship[0]}` : ''}
+                       ${cell.ship ? `ship-${cell.ship[0]}` : ''}
                        ${
                          cell.ship && cell.hit ? 'hitShip' : ''
                        } playerBoardCell`}
@@ -84,7 +88,10 @@ export default function GameView() {
                       className={`enemyBoardCell ${
                         cell.hit && !cell.ship ? 'hit' : ''
                       }
-                        ${cell.ship && cell.hit ? 'hitShip' : ''}`}
+                        ${cell.ship && cell.hit ? 'hitShip' : ''}
+                         ${
+                           cell.ship && gameover ? `ship-${cell.ship[0]}` : ''
+                         }`}
                     >
                       {cell.ship && cell.hit ? 'X' : null}
                     </div>
