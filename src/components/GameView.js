@@ -12,14 +12,12 @@ export default function GameView() {
   } = useGlobalContext();
 
   const handleClick = (e) => {
+    // Handle user attack, respond with computer attack
     if (userTurn) {
-      console.log(e.target.classList.contains('hit'));
-      console.log(e.target.classList);
       if (
         !e.target.classList.contains('hit') &&
         !e.target.classList.contains('hitShip')
       ) {
-        console.log(e.target.id);
         playerTurn([e.target.id[0], e.target.id[1]]);
         const attack = game.computer.playTurn(game.playerBoard);
 
@@ -31,6 +29,7 @@ export default function GameView() {
   };
 
   useEffect(() => {
+    // Only used for first load if coomputer first move
     if (!userTurn) {
       const attack = game.computer.playTurn(game.playerBoard);
 
@@ -39,6 +38,7 @@ export default function GameView() {
   }, []);
 
   useEffect(() => {
+    // Check for game win
     if (!gameover) {
       if (game.playerBoard.shipsSunk()) {
         console.log('computer wins!');

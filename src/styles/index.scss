@@ -111,10 +111,12 @@ main {
   width: 2em;
   height: 2em;
   border: 1px solid black;
+  z-index: 4;
 }
 
 .ship {
   display: flex;
   flex-direction: none;
   margin: 0.5em;
+  z-index: 1;
 }

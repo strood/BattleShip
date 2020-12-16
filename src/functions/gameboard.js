@@ -31,6 +31,8 @@ const Gameboard = () => {
     let length = ship.getLength();
     let boardSeg = [];
 
+    // dont ANY accept if x < 0 or y < 0 or x or 7 > 9
+
     //check orientaition, and grab board in that direction
     if (orientation === 'horizontal') {
       boardSeg = board[startX].slice(startY);

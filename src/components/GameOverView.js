@@ -3,7 +3,9 @@ import { useGlobalContext } from '../context';
 
 export default function NewGameView() {
   const { newGame, winner } = useGlobalContext();
+
   const newGameButton = () => {
+    //Start new game
     newGame();
   };
   return (
