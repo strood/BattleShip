@@ -13,13 +13,19 @@ export default function GameView() {
 
   const handleClick = (e) => {
     if (userTurn) {
-      console.log(e.target);
-      if (!e.target.hit) {
+      console.log(e.target.classList.contains('hit'));
+      console.log(e.target.classList);
+      if (
+        !e.target.classList.contains('hit') &&
+        !e.target.classList.contains('hitShip')
+      ) {
         console.log(e.target.id);
         playerTurn([e.target.id[0], e.target.id[1]]);
         const attack = game.computer.playTurn(game.playerBoard);
 
         computerTurn(attack);
+      } else {
+        console.log('invalid move');
       }
     }
   };
@@ -33,13 +39,15 @@ export default function GameView() {
   }, []);
 
   useEffect(() => {
-    if (game.playerBoard.shipsSunk()) {
-      console.log('computer wins!');
-      winGame(game.computer);
-    }
-    if (game.enemyBoard.shipsSunk()) {
-      console.log('player wins!');
-      winGame(game.user);
+    if (!gameover) {
+      if (game.playerBoard.shipsSunk()) {
+        console.log('computer wins!');
+        winGame(game.computer);
+      }
+      if (game.enemyBoard.shipsSunk()) {
+        console.log('player wins!');
+        winGame(game.user);
+      }
     }
   });
 

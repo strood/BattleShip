@@ -20,6 +20,7 @@ export default function reducer(state, action) {
       ...state,
       game: Game(),
       setup: true,
+      playing: false,
       gameover: false,
       winner: null,
     };

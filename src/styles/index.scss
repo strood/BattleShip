@@ -71,6 +71,12 @@ main {
   }
 }
 
+.hitShip {
+  &:hover {
+    cursor: pointer;
+  }
+}
+
 // Setup Page
 
 .setupHolder {
