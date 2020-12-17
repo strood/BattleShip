@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useGlobalContext } from '../context';
 
 export default function GameView() {
@@ -10,6 +10,11 @@ export default function GameView() {
     userTurn,
     gameover,
   } = useGlobalContext();
+
+  const [playerHit, setPlayerHit] = useState(false);
+  const [playerMiss, setPlayerMiss] = useState(false);
+  const [computerHit, setComputerHit] = useState(false);
+  const [computerMiss, setComputerMiss] = useState(false);
 
   const handleClick = (e) => {
     // Handle user attack, respond with computer attack
@@ -54,7 +59,7 @@ export default function GameView() {
   return (
     <div className='boardHolder'>
       <div className='playerBoardDiv'>
-        <h3>Your Board</h3>
+        <h4 className='header'>Your Board</h4>
         <div className='playerBoard'>
           {game.playerBoard.getBoard().map((row, i) => {
             return (
@@ -82,7 +87,7 @@ export default function GameView() {
       <br />
 
       <div className='enemyBoardDiv'>
-        <h3>Enemy Board</h3>
+        <h4 className='header'>Enemy Board</h4>
         <div className='enemyBoard'>
           {game.enemyBoard.getBoard().map((row, i) => {
             return (

@@ -10,10 +10,15 @@ export default function NewGameView() {
   };
   return (
     <div className='modal'>
-      <h1>Game Over</h1>
-      {winner.human ? <h2>You win!</h2> : <h2>You Lose!</h2>}
-      <p>play a new game?</p>
-      <button onClick={() => newGameButton()}>Start New Game!</button>
+      <div className='modalDiv'>
+        <h1>Game Over</h1>
+        <hr />
+        {winner.human ? <h2>You win!</h2> : <h2>You Lose!</h2>}
+        <p>Play again?</p>
+        <button className='btn' onClick={() => newGameButton()}>
+          Start New Game!
+        </button>
+      </div>
     </div>
   );
 }

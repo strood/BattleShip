@@ -68,7 +68,7 @@ export default function SetupView() {
     <>
       <div className='setupHolder'>
         <div className='playerBoard'>
-          <h3>Your Board</h3>
+          <h4 className='header'>Your Board</h4>
           {game.playerBoard.getBoard().map((row, i) => {
             return (
               <div key={i} className='boardRow'>
@@ -100,7 +100,7 @@ export default function SetupView() {
 
         {game.playerBoard.getShips().length < 5 && (
           <div className='shipHolder'>
-            <h4>Place your Ships</h4>
+            <h4 className='header'>Place Ships</h4>
             <button className='btn' onClick={() => randomizeShips()}>
               Randomize
             </button>
@@ -138,7 +138,7 @@ export default function SetupView() {
         )}
         {game.playerBoard.getShips().length === 5 && (
           <div className='shipHolder'>
-            <h4>Ships have been placed!</h4>
+            <h4 className='header'>Ships have been placed!</h4>
             <button className='btn' onClick={() => randomizeShips()}>
               Re-Randomize
             </button>

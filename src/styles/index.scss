@@ -25,7 +25,8 @@ main {
 
 .modal {
   z-index: 10;
-  background: transparent;
+  background-color: rgba(255, 255, 255, 0.131);
+  // background: transparent;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -33,6 +34,20 @@ main {
   position: absolute;
   width: 100%;
   height: 100%;
+  .modalDiv {
+    background-color: rgb(109, 108, 108);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    padding: 1em;
+    h2 {
+      color: white;
+      margin-bottom: 1em;
+    }
+    // height: 4em;
+    // width: 7em;
+  }
 }
 
 .title {
@@ -40,12 +55,16 @@ main {
   font-family: 'Bungee Hairline', sans-serif;
 }
 
+.header {
+  margin: 0.7em;
+}
+
 .btn {
   font-size: 18px;
   border: 1px solid black;
   padding: 0.5em;
   border-radius: 0.2em;
-  margin: 0.1em;
+  margin: 0.3em;
   &:hover {
     background-color: rgb(65, 62, 62);
     color: white;
