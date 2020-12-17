@@ -23,6 +23,20 @@ const Gameboard = () => {
 
   // Functions
 
+  const resetBoard = () => {
+    board = [];
+    for (let i = 1; i <= 10; i++) {
+      let row = [];
+      for (let j = 1; j <= 10; j++) {
+        let cell = { hit: false, ship: false };
+        row.push(cell);
+      }
+      board.push(row);
+    }
+
+    placedShips = [];
+  };
+
   const checkPlacement = (ship, coordinates) => {
     let placementValidity = true;
     let startX = coordinates[0];
@@ -116,6 +130,7 @@ const Gameboard = () => {
     shipsSunk,
     receiveAttack,
     checkPlacement,
+    resetBoard,
   };
 };
 

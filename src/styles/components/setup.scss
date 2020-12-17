@@ -1,0 +1,42 @@
+// Setup Page
+
+.setupHolder {
+  display: flex;
+  justify-content: space-around;
+  width: 60%;
+}
+
+.shipHolder {
+  display: flex;
+  width: 20%;
+  flex-direction: column;
+  .shipDiv {
+    margin-top: 1em;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+}
+
+.vertical {
+  flex-direction: column;
+}
+
+.horizontal {
+  flex-direction: row;
+}
+
+.playerShipCell {
+  width: 2em;
+  height: 2em;
+  border: 1px solid black;
+  z-index: 4;
+}
+
+.ship {
+  display: flex;
+  flex-direction: none;
+  margin: 0.5em;
+  z-index: 1;
+}

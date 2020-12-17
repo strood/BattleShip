@@ -10,7 +10,8 @@ export default function Main() {
 
   return (
     <main>
-      <h1>BattleShip</h1>
+      <h1 className='title'>BattleShip</h1>
+      <hr />
       {!game && <NewGameView />}
       {setup && <SetupView />}
       {playing && <GameView />}

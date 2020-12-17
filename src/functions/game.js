@@ -38,7 +38,6 @@ const Game = () => {
   const enemyShips = generateShips();
 
   randomizeShips(enemyShips, enemyBoard);
-  // randomizeShips(playerShips, playerBoard);
 
   return {
     user,
@@ -46,6 +45,7 @@ const Game = () => {
     playerBoard,
     enemyBoard,
     playerShips,
+    generateShips,
     randomizeShips,
   };
 };

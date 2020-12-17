@@ -5,6 +5,7 @@ export default function SetupView() {
   const { game, startGame } = useGlobalContext();
   const [currentShipSeg, setCurrentShipSeg] = useState(null);
 
+  // Start game
   const startGameButton = () => {
     startGame();
   };
@@ -13,6 +14,7 @@ export default function SetupView() {
     e.preventDefault();
   };
 
+  // Handle drop on board
   const drop = (e) => {
     e.preventDefault();
     let val = e.dataTransfer.getData('text').split('-')[1];
@@ -30,7 +32,6 @@ export default function SetupView() {
       mutatedCoords[0] = coords[0] - segOffset;
       mutatedCoords[1] = coords[1] - 0;
     }
-    console.log(mutatedCoords);
 
     // Now try to place ship, catch the error if throw to trigger notice
     try {
@@ -42,10 +43,27 @@ export default function SetupView() {
     }
   };
 
+  // Set drag data to be used on drop
   const drag = (e) => {
     e.dataTransfer.setData('text', e.target.id);
   };
-  console.log(game.playerBoard.getShips());
+
+  //Rotate ship opn doublke click and reload page
+  const rotateShip = (e) => {
+    let val = e.target.id.split('-')[1];
+    const ship = game.playerShips[val];
+    ship.toggleOrientation();
+    setCurrentShipSeg(null);
+  };
+
+  //Randomize player ship placement
+  const randomizeShips = () => {
+    game.playerShips = game.generateShips();
+    game.playerBoard.resetBoard();
+    game.randomizeShips(game.playerShips, game.playerBoard);
+    setCurrentShipSeg(!currentShipSeg);
+  };
+
   return (
     <>
       <div className='setupHolder'>
@@ -56,7 +74,6 @@ export default function SetupView() {
               <div key={i} className='boardRow'>
                 {row.map((cell, j) => {
                   if (cell.ship) {
-                    console.log(cell.ship);
                     return (
                       <div
                         key={`${i}${j}`}
@@ -84,6 +101,9 @@ export default function SetupView() {
         {game.playerBoard.getShips().length < 5 && (
           <div className='shipHolder'>
             <h4>Place your Ships</h4>
+            <button className='btn' onClick={() => randomizeShips()}>
+              Randomize
+            </button>
             <div className='shipDiv'>
               {game.playerShips.map((ship, i) => {
                 if (game.playerBoard.getShips().includes(ship)) {
@@ -95,6 +115,7 @@ export default function SetupView() {
                       id={`ship-${i}`}
                       className={`ship ${ship.getOrientation()}`}
                       draggable='true'
+                      onDoubleClick={(e) => rotateShip(e)}
                       onMouseDown={(e) => setCurrentShipSeg(e.target.id)}
                       onDragStart={(e) => drag(e)}
                     >
@@ -118,7 +139,12 @@ export default function SetupView() {
         {game.playerBoard.getShips().length === 5 && (
           <div className='shipHolder'>
             <h4>Ships have been placed!</h4>
-            <button onClick={() => startGameButton()}>Start Game!</button>
+            <button className='btn' onClick={() => randomizeShips()}>
+              Re-Randomize
+            </button>
+            <button className='btn' onClick={() => startGameButton()}>
+              Start Game
+            </button>
           </div>
         )}
       </div>
