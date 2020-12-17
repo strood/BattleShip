@@ -45,7 +45,7 @@ export default function SetupView() {
   const drag = (e) => {
     e.dataTransfer.setData('text', e.target.id);
   };
-
+  console.log(game.playerBoard.getShips());
   return (
     <>
       <div className='setupHolder'>
@@ -56,11 +56,12 @@ export default function SetupView() {
               <div key={i} className='boardRow'>
                 {row.map((cell, j) => {
                   if (cell.ship) {
+                    console.log(cell.ship);
                     return (
                       <div
                         key={`${i}${j}`}
                         id={`${i}${j}`}
-                        className={`playerBoardCell ${`ship-${cell.ship[0]}`}`}
+                        className={`playerBoardCell ${`ship-${cell.ship[2]}`}`}
                       ></div>
                     );
                   } else {
@@ -102,7 +103,7 @@ export default function SetupView() {
                           <div
                             id={`ship-${i}-${j}`}
                             key={`${ship}-${i}-${j}`}
-                            className={`playerShipCell ship-${i + 1}`}
+                            className={`playerShipCell ship-${ship.getLength()}`}
                             onDragStart={(e) => drag(e)}
                           ></div>
                         );

@@ -62,7 +62,9 @@ const Gameboard = () => {
     const isValid = checkPlacement(ship, coordinates);
 
     if (isValid) {
-      let id = placedShips.push(ship) - 1;
+      // Grab length for id used in color, index used later when marking hit
+      let id = ship.getLength();
+      let index = placedShips.push(ship) - 1;
 
       if (ship.getOrientation() === 'horizontal') {
         let constX = coordinates[0];
@@ -71,7 +73,7 @@ const Gameboard = () => {
         // track which segment of ship it is, encode into id so we know for later when hit
         let segcount = 0;
         for (let i = startY; i < endY; i++) {
-          board[constX][i].ship = `${id}s${segcount}`;
+          board[constX][i].ship = `${index}s${id}s${segcount}`;
           segcount++;
         }
       } else {
@@ -81,7 +83,7 @@ const Gameboard = () => {
         // track which segment of ship it is, encode into id so we know for later when hit
         let segcount = 0;
         for (let i = startX; i < endX; i++) {
-          board[i][constY].ship = `${id}s${segcount}`;
+          board[i][constY].ship = `${index}s${id}s${segcount}`;
           segcount++;
         }
       }
@@ -98,10 +100,12 @@ const Gameboard = () => {
     board[x][y].hit = true;
     if (board[x][y].ship) {
       let shipInfo = board[x][y].ship.split('s');
-
-      let id = shipInfo[0];
-      let shipSeg = shipInfo[1];
-      placedShips[id].hit(shipSeg);
+      let index = shipInfo[0];
+      let shipSeg = shipInfo[2];
+      console.log('placed ships');
+      console.log(placedShips);
+      console.log(shipInfo);
+      placedShips[index].hit(shipSeg);
     }
   };
 

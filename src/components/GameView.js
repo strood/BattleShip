@@ -65,7 +65,7 @@ export default function GameView() {
                       key={`${i}${j}`}
                       id={`${i}${j}`}
                       className={` ${cell.hit && !cell.ship ? 'hit' : ''}
-                       ${cell.ship ? `ship-${cell.ship[0]}` : ''}
+                       ${cell.ship ? `ship-${cell.ship[2]}` : ''}
                        ${
                          cell.ship && cell.hit ? 'hitShip' : ''
                        } playerBoardCell`}
@@ -98,7 +98,7 @@ export default function GameView() {
                       }
                         ${cell.ship && cell.hit ? 'hitShip' : ''}
                          ${
-                           cell.ship && gameover ? `ship-${cell.ship[0]}` : ''
+                           cell.ship && gameover ? `ship-${cell.ship[2]}` : ''
                          }`}
                     >
                       {cell.ship && cell.hit ? 'X' : null}
