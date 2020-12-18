@@ -23,19 +23,19 @@ describe('Gameboard', () => {
     });
     expect(board.getBoard()[0][5]).toEqual({
       hit: false,
-      ship: '0s0',
+      ship: '0s4s0',
     });
     expect(board.getBoard()[0][6]).toEqual({
       hit: false,
-      ship: '0s1',
+      ship: '0s4s1',
     });
     expect(board.getBoard()[0][7]).toEqual({
       hit: false,
-      ship: '0s2',
+      ship: '0s4s2',
     });
     expect(board.getBoard()[0][8]).toEqual({
       hit: false,
-      ship: '0s3',
+      ship: '0s4s3',
     });
     expect(board.getBoard()[0][9]).toEqual({
       hit: false,
@@ -54,23 +54,23 @@ describe('Gameboard', () => {
     });
     expect(board.getBoard()[1][3]).toEqual({
       hit: false,
-      ship: '0s0',
+      ship: '0s5s0',
     });
     expect(board.getBoard()[2][3]).toEqual({
       hit: false,
-      ship: '0s1',
+      ship: '0s5s1',
     });
     expect(board.getBoard()[3][3]).toEqual({
       hit: false,
-      ship: '0s2',
+      ship: '0s5s2',
     });
     expect(board.getBoard()[4][3]).toEqual({
       hit: false,
-      ship: '0s3',
+      ship: '0s5s3',
     });
     expect(board.getBoard()[5][3]).toEqual({
       hit: false,
-      ship: '0s4',
+      ship: '0s5s4',
     });
     expect(board.getBoard()[6][3]).toEqual({
       hit: false,
@@ -115,28 +115,33 @@ describe('Gameboard', () => {
       'invalid ship placement'
     );
   });
+  describe('receiveAttack()', () => {
+    console.log(
+      'if these tests failing, comment out the event call and test again'
+    );
 
-  test('receiveAttack() function will take coordinates, mark spot as hit', () => {
-    const board = Gameboard();
-    board.receiveAttack([5, 5]);
-    expect(board.getBoard()[5][5]).toEqual({ hit: true, ship: false });
-  });
+    test('receiveAttack() function will take coordinates, mark spot as hit', () => {
+      const board = Gameboard();
+      board.receiveAttack([5, 5]);
+      expect(board.getBoard()[5][5]).toEqual({ hit: true, ship: false });
+    });
 
-  test('receiveAttack() function will take coordinates, mark spot as hit, even if ship present', () => {
-    const board = Gameboard();
-    const testShip = Ship(5);
-    board.placeShip(testShip, [5, 3]);
-    board.receiveAttack([5, 5]);
-    expect(board.getBoard()[5][5]).toEqual({ hit: true, ship: '0s2' });
-  });
+    test('receiveAttack() function will take coordinates, mark spot as hit, even if ship present', () => {
+      const board = Gameboard();
+      const testShip = Ship(5);
+      board.placeShip(testShip, [5, 3]);
+      board.receiveAttack([5, 5]);
+      expect(board.getBoard()[5][5]).toEqual({ hit: true, ship: '0s5s2' });
+    });
 
-  test('receiveAttack() function will take coordinates, mark spot as hit, and tell correct ship its been hit, in correct segment', () => {
-    const board = Gameboard();
-    const testShip = Ship(5);
-    board.placeShip(testShip, [5, 3]);
-    board.receiveAttack([5, 5]);
+    test('receiveAttack() function will take coordinates, mark spot as hit, and tell correct ship its been hit, in correct segment', () => {
+      const board = Gameboard();
+      const testShip = Ship(5);
+      board.placeShip(testShip, [5, 3]);
+      board.receiveAttack([5, 5]);
 
-    expect(testShip.getSegments()[2]).toEqual('hit');
+      expect(testShip.getSegments()[2]).toEqual('hit');
+    });
   });
 
   test('shipsRemaining() should return true, unless all ships have been sank', () => {
