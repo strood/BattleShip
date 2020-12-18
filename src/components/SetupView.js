@@ -34,11 +34,18 @@ export default function SetupView() {
     }
 
     // Now try to place ship, catch the error if throw to trigger notice
+    let success = true;
     try {
       game.playerBoard.placeShip(ship, mutatedCoords);
     } catch (Error) {
+      success = false;
       console.log('Cant make that placement!');
     } finally {
+      if (success) {
+        toggleShipSuccess();
+      } else {
+        toggleShipError();
+      }
       setCurrentShipSeg(null);
     }
   };
@@ -62,6 +69,22 @@ export default function SetupView() {
     game.playerBoard.resetBoard();
     game.randomizeShips(game.playerShips, game.playerBoard);
     setCurrentShipSeg(!currentShipSeg);
+  };
+
+  // Handle placement success or error feedback
+  const toggleShipSuccess = () => {
+    let main = document.querySelector('main');
+    main.classList.add('success');
+    setTimeout(() => {
+      main.classList.remove('success');
+    }, 1000);
+  };
+  const toggleShipError = () => {
+    let main = document.querySelector('main');
+    main.classList.add('error');
+    setTimeout(() => {
+      main.classList.remove('error');
+    }, 1000);
   };
 
   return (
@@ -101,6 +124,7 @@ export default function SetupView() {
         {game.playerBoard.getShips().length < 5 && (
           <div className='shipHolder'>
             <h4 className='header'>Place Ships</h4>
+            <hr />
             <button className='btn' onClick={() => randomizeShips()}>
               Randomize
             </button>
@@ -134,11 +158,14 @@ export default function SetupView() {
                 }
               })}
             </div>
+            <hr />
+            <p>Double-click ship to turn</p>
           </div>
         )}
         {game.playerBoard.getShips().length === 5 && (
           <div className='shipHolder'>
             <h4 className='header'>Ships have been placed!</h4>
+            <hr />
             <button className='btn' onClick={() => randomizeShips()}>
               Re-Randomize
             </button>

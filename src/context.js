@@ -12,6 +12,7 @@ const initialState = {
   userTurn: false,
   gameover: false,
   winner: null,
+  hit: null,
 };
 
 const AppProvider = ({ children }) => {

@@ -4,7 +4,7 @@ import Ship from './ship';
 
 const generateShips = () => {
   const baseShips = [5, 4, 3, 3, 2];
-  return baseShips.map((shipSize) => {
+  const shipArr = baseShips.map((shipSize) => {
     let ship = Ship(shipSize);
     let randFlip = Math.floor(Math.random() * 2);
     if (randFlip === 1) {
@@ -12,6 +12,7 @@ const generateShips = () => {
     }
     return ship;
   });
+  return shipArr;
 };
 
 const randomizeShips = (shipsArr, board) => {

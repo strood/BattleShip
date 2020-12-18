@@ -9,7 +9,7 @@ export default function NewGameView() {
   return (
     <>
       <button className='btn' onClick={() => newGameButton()}>
-        Play!
+        Play
       </button>
     </>
   );

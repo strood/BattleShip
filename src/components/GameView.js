@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useGlobalContext } from '../context';
 
 export default function GameView() {
@@ -11,11 +11,6 @@ export default function GameView() {
     gameover,
   } = useGlobalContext();
 
-  const [playerHit, setPlayerHit] = useState(false);
-  const [playerMiss, setPlayerMiss] = useState(false);
-  const [computerHit, setComputerHit] = useState(false);
-  const [computerMiss, setComputerMiss] = useState(false);
-
   const handleClick = (e) => {
     // Handle user attack, respond with computer attack
     if (userTurn) {
@@ -24,21 +19,40 @@ export default function GameView() {
         !e.target.classList.contains('hitShip')
       ) {
         playerTurn([e.target.id[0], e.target.id[1]]);
-        const attack = game.computer.playTurn(game.playerBoard);
 
-        computerTurn(attack);
+        const attack = game.computer.playTurn(game.playerBoard);
+        setTimeout(() => {
+          computerTurn(attack);
+        }, 1000);
       } else {
         console.log('invalid move');
       }
     }
   };
 
+  let main = document.querySelector('main');
+  main.addEventListener('hit', () => {
+    main.classList.add('success');
+    setTimeout(() => {
+      main.classList.remove('success');
+    }, 550);
+  });
+
+  main.addEventListener('miss', () => {
+    main.classList.add('error');
+    setTimeout(() => {
+      main.classList.remove('error');
+    }, 550);
+  });
+
   useEffect(() => {
     // Only used for first load if coomputer first move
     if (!userTurn) {
       const attack = game.computer.playTurn(game.playerBoard);
 
-      computerTurn(attack);
+      setTimeout(() => {
+        computerTurn(attack);
+      }, 550);
     }
   }, []);
 
@@ -59,7 +73,11 @@ export default function GameView() {
   return (
     <div className='boardHolder'>
       <div className='playerBoardDiv'>
-        <h4 className='header'>Your Board</h4>
+        <div className='headerDiv'>
+          <h4 className='header'>Your Board</h4>
+          {userTurn && <p>&#8226;</p>}
+        </div>
+
         <div className='playerBoard'>
           {game.playerBoard.getBoard().map((row, i) => {
             return (
@@ -87,7 +105,10 @@ export default function GameView() {
       <br />
 
       <div className='enemyBoardDiv'>
-        <h4 className='header'>Enemy Board</h4>
+        <div className='headerDiv'>
+          <h4 className='header'>Enemy Board</h4>
+          {!userTurn && <p>&#8226;</p>}
+        </div>
         <div className='enemyBoard'>
           {game.enemyBoard.getBoard().map((row, i) => {
             return (

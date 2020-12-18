@@ -1,6 +1,9 @@
 // Gameboard Factory
 
 const Gameboard = () => {
+  const hitEvent = new Event('hit');
+  const missEvent = new Event('miss');
+
   // Properties
   let board = [];
   for (let i = 1; i <= 10; i++) {
@@ -109,6 +112,7 @@ const Gameboard = () => {
 
   // Receive attack coordinates, mark as hit, notify ship of hit segment if present
   const receiveAttack = (coordinates) => {
+    const main = document.querySelector('main');
     let x = coordinates[0];
     let y = coordinates[1];
     board[x][y].hit = true;
@@ -116,10 +120,10 @@ const Gameboard = () => {
       let shipInfo = board[x][y].ship.split('s');
       let index = shipInfo[0];
       let shipSeg = shipInfo[2];
-      console.log('placed ships');
-      console.log(placedShips);
-      console.log(shipInfo);
       placedShips[index].hit(shipSeg);
+      main.dispatchEvent(hitEvent);
+    } else {
+      main.dispatchEvent(missEvent);
     }
   };
 

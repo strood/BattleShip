@@ -10,6 +10,11 @@
   display: flex;
   width: 20%;
   flex-direction: column;
+  h4,
+  p {
+    display: flex;
+    justify-content: center;
+  }
 }
 .shipDiv {
   margin-top: 1em;
@@ -28,14 +33,13 @@
 }
 
 .playerShipCell {
-  width: 2em;
-  height: 2em;
+  width: 2.5em;
+  height: 2.5em;
   border: 1px solid black;
 }
 
 .ship {
   display: flex;
-  flex-direction: none;
   margin: 0.5em;
 }
 
